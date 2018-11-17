@@ -12,7 +12,11 @@ For discussion and support please visit ioBroker-forum-thread (http://forum.iobr
 
 ## Changelog
 
-### ADD Node 8
+###  1.1 (17.11.2017)
+ADD Node-Red - Join Support
+
+### 1.0 
+* ADD Node 8
 * add Bluetooth
 * add npm speed
 
