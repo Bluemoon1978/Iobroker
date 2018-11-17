@@ -34,6 +34,13 @@ RUN update-rc.d iobroker.sh remove
 RUN npm install node-gyp -g
 RUN npm install --global speed-test
 
+RUN mkdir -p /opt/iobroker/node_modules/iobroker.node-red/node_modules && chmod 777 /opt/iobroker/node_modules/iobroker.node-red/node_modules
+WORKDIR WORKDIR /opt/iobroker/node_modules/iobroker.node-red/node_modules
+RUN npm install node-red-contrib-join
+
+WORKDIR /opt/iobroker/
+
+
 CMD ["sh", "/opt/scripts/iobroker_startup.sh"]
 
 ENV DEBIAN_FRONTEND teletype
