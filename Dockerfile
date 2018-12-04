@@ -4,7 +4,9 @@ MAINTAINER Andre Germann <info@buanet.de> / Heiko Holzheimer
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y build-essential python apt-utils curl avahi-daemon git libpcap-dev libavahi-compat-libdnssd-dev libfontconfig gnupg2 locales procps libudev-dev unzip sudo wget ffmpeg android-tools-adb android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev nano
+RUN apt-get update && apt-get install -y build-essential python apt-utils curl avahi-daemon git libpcap-dev libavahi-compat-libdnssd-dev 
+RUN apt-get update && apt-get install -y libfontconfig gnupg2 locales procps libudev-dev unzip sudo wget ffmpeg android-tools-adb 
+RUN apt-get update && apt-get install -y android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev nano arp-scan
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get install -y nodejs
@@ -34,7 +36,8 @@ RUN update-rc.d iobroker.sh remove
 RUN npm install node-gyp -g
 RUN npm install --global speed-test
 
-RUN mkdir -p /opt/iobroker/node_modules/iobroker.node-red/node_modules && chmod 777 /opt/iobroker/node_modules/iobroker.node-red/node_modules
+RUN mkdir -p /opt/iobroker/node_modules/iobroker.node-red/node_modules 
+RUN chmod 777 /opt/iobroker/node_modules/iobroker.node-red/node_modules
 WORKDIR WORKDIR /opt/iobroker/node_modules/iobroker.node-red/node_modules
 RUN npm install node-red-contrib-join
 
