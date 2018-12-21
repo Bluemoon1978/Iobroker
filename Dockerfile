@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y build-essential python apt-utils curl avahi-daemon git libpcap-dev libavahi-compat-libdnssd-dev 
 RUN apt-get update && apt-get install -y libfontconfig gnupg2 locales procps libudev-dev unzip sudo wget ffmpeg android-tools-adb 
-RUN apt-get update && apt-get install -y android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev nano arp-scan
+RUN apt-get update && apt-get install -y android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev libpam0g-dev nano arp-scan
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get install -y nodejs
@@ -31,8 +31,8 @@ RUN chmod +x iobroker_startup.sh
 
 WORKDIR /opt/iobroker/
 
-RUN npm install iobroker --unsafe-perm && echo $(hostname) > .install_host
-RUN update-rc.d iobroker.sh remove
+RUN npm install iobroker --unsafe-perm && npm i --production --unsafe-perm
+RUN update-rc.d iobroker.sh remove && echo $(hostname) > .install_host
 RUN npm install node-gyp -g
 RUN npm install --global speed-test
 
@@ -42,7 +42,6 @@ WORKDIR /opt/iobroker/node_modules/iobroker.node-red/node_modules
 RUN npm install node-red-contrib-join
 
 WORKDIR /opt/iobroker/
-
 
 CMD ["sh", "/opt/scripts/iobroker_startup.sh"]
 
