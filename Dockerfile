@@ -38,7 +38,7 @@ RUN npm install --global speed-test
 
 RUN mkdir -p /opt/iobroker/node_modules/iobroker.node-red/node_modules 
 RUN chmod 777 /opt/iobroker/node_modules/iobroker.node-red/node_modules
-WORKDIR WORKDIR /opt/iobroker/node_modules/iobroker.node-red/node_modules
+WORKDIR /opt/iobroker/node_modules/iobroker.node-red/node_modules
 RUN npm install node-red-contrib-join
 
 WORKDIR /opt/iobroker/
