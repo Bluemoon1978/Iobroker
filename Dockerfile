@@ -4,9 +4,12 @@ MAINTAINER Andre Germann <info@buanet.de> / Heiko Holzheimer
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y build-essential python apt-utils curl avahi-daemon git libpcap-dev libavahi-compat-libdnssd-dev 
-RUN apt-get update && apt-get install -y libfontconfig gnupg2 locales procps libudev-dev unzip sudo wget ffmpeg android-tools-adb 
-RUN apt-get update && apt-get install -y android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev libpam0g-dev nano arp-scan
+RUN apt-get update && \
+apt-get install -y \
+build-essential python apt-utils curl avahi-daemon git libpcap-dev libavahi-compat-libdnssd-dev \
+libfontconfig gnupg2 locales procps libudev-dev unzip sudo wget ffmpeg android-tools-adb \
+android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev libpam0g-dev nano arp-scan && \
+apt-get -y clean all
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get install -y nodejs
@@ -42,6 +45,8 @@ WORKDIR /opt/iobroker/node_modules/iobroker.node-red/node_modules
 RUN npm install node-red-contrib-join
 
 WORKDIR /opt/iobroker/
+VOLUME /opt/iobroker
+EXPOSE 8081 8082 8083 8084
 
 CMD ["sh", "/opt/scripts/iobroker_startup.sh"]
 
