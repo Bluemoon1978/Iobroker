@@ -12,7 +12,10 @@ For discussion and support please visit ioBroker-forum-thread (http://forum.iobr
 
 ## Changelog
 
-###  1.1 (17.11.2017)
+###  1.2 (27.12.2018)
+* bugfixing
+
+###  1.1 (17.11.2018)
 * add Node-Red - Join Support
 
 ### 1.0 
