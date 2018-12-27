@@ -9,10 +9,13 @@ apt-get install -y \
   build-essential python apt-utils curl avahi-daemon git libpcap-dev libavahi-compat-libdnssd-dev \
   libfontconfig gnupg2 locales procps libudev-dev unzip sudo wget ffmpeg android-tools-adb \
   android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev libpam0g-dev nano arp-scan && \
-  apt-get -y clean all
+  apt-get -y clean all && \
+  apt-get autoremove
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
-RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs && \
+  apt-get -y clean all && \
+  apt-get autoremove
 
 RUN sed -i '/^rlimit-nproc/s/^\(.*\)/#\1/g' /etc/avahi/avahi-daemon.conf
 RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -42,9 +45,9 @@ RUN update-rc.d iobroker.sh remove && echo $(hostname) > .install_host
 RUN npm install node-gyp -g
 RUN npm install --global speed-test
 
-RUN mkdir -p /opt/iobroker/node_modules/iobroker.node-red/node_modules 
-RUN chmod 777 /opt/iobroker/node_modules/iobroker.node-red/node_modules
-WORKDIR /opt/iobroker/node_modules/iobroker.node-red/node_modules
+RUN mkdir -p /opt/iobroker/node_modules/iobroker.node-red && \
+  chmod 777 /opt/iobroker/node_modules/iobroker.node-red
+WORKDIR /opt/iobroker/node_modules/iobroker.node-red
 RUN npm install node-red-contrib-join
 
 WORKDIR /opt/iobroker/
