@@ -1,16 +1,25 @@
 FROM debian:latest
 
-MAINTAINER Andre Germann <info@buanet.de> / Heiko Holzheimer 
+MAINTAINER Andre Germann <https://buanet.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# INSTALL PACKAGS
-RUN apt-get update && \
-	apt-get install -y \
-  	build-essential curl git gnupg2 libpam0g-dev libudev-dev locales procps python sudo unzip wget \
-  	apt-utils android-tools-adb android-tools-fastboot \
-	bluetooth bluez libbluetooth-dev nano arp-scan && \
-    	rm -rf /var/lib/apt/lists/* 
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+        apt-utils \
+        build-essential \
+        curl \
+        git \
+        gnupg2 \
+        libpam0g-dev \
+        libudev-dev \
+        locales \
+        procps \
+        python \
+        sudo \
+        unzip \
+        wget \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install node8
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
@@ -49,10 +58,6 @@ RUN apt-get update \
 WORKDIR /opt/iobroker/
 RUN npm install node-gyp -g
 
-# INSTALL KEYBLE
-RUN npm install --update --global --unsafe-perm keyble
-RUN setcap cap_net_raw+eip $(eval readlink -f `which node`)
-
 # Backup initial ioBroker-folder
 RUN tar -cf /opt/initial_iobroker.tar /opt/iobroker
 
@@ -70,10 +75,7 @@ ENV DEBIAN_FRONTEND="teletype" \
 	AVAHI="false"
 
 # Setting up EXPOSE for Admin
-EXPOSE 8081/tcp 
-EXPOSE 8082/tcp 
-EXPOSE 8083/tcp 
-EXPOSE 8084/tcp
-
+EXPOSE 8081/tcp	
+	
 # Run startup-script
 CMD ["sh", "/opt/scripts/iobroker_startup.sh"]
