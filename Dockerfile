@@ -22,10 +22,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install node8
-# RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
-# RUN apt-get update && apt-get install -y \
-  #       nodejs \
-   #  && rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN apt-get update && apt-get install -y \
+       nodejs \
+       && rm -rf /var/lib/apt/lists/*
 
 # Configure avahi-daemon 
 # RUN sed -i '/^rlimit-nproc/s/^\(.*\)/#\1/g' /etc/avahi/avahi-daemon.conf
@@ -55,8 +55,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install node-gyp
-WORKDIR /opt/iobroker/
-RUN npm install node-gyp -g
+#WORKDIR /opt/iobroker/
+#RUN npm install node-gyp -g
 
 # Backup initial ioBroker-folder
 RUN tar -cf /opt/initial_iobroker.tar /opt/iobroker
