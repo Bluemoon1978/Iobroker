@@ -8,7 +8,8 @@ RUN apt-get update && \
 apt-get install -y \
   build-essential python apt-utils curl avahi-daemon git libpcap-dev libavahi-compat-libdnssd-dev \
   libfontconfig gnupg2 locales procps libudev-dev unzip sudo wget ffmpeg android-tools-adb \
-  android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev libpam0g-dev nano arp-scan && \
+  android-tools-fastboot bluetooth bluez libbluetooth-dev libudev-dev libpam0g-dev nano arp-scan \
+  libcap2-bin && \
   apt-get -y clean all && \
   apt-get autoremove
 
@@ -44,6 +45,8 @@ RUN npm install iobroker --unsafe-perm && npm i --production --unsafe-perm
 RUN update-rc.d iobroker.sh remove && echo $(hostname) > .install_host
 RUN npm install node-gyp -g
 RUN npm install --global speed-test
+RUN sudo npm install --update --global --unsafe-perm keyble
+RUN setcap cap_net_raw+eip $(eval readlink -f `which node`)
 
 RUN mkdir -p /opt/iobroker/node_modules/iobroker.node-red && \
   chmod 777 /opt/iobroker/node_modules/iobroker.node-red
