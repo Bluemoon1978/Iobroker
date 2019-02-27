@@ -73,7 +73,10 @@ ENV DEBIAN_FRONTEND="teletype" \
 
 
 # Setting up EXPOSE for Admin
-EXPOSE 8081/tcp 8082/tcp 8083/tcp 8084/tcp
+EXPOSE 8081/tcp 
+EXPOSE 8082/tcp 
+EXPOSE 8083/tcp 
+EXPOSE 8084/tcp
 
 # Run startup-script
 CMD ["sh", "/opt/scripts/iobroker_startup.sh"]
