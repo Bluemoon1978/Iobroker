@@ -18,7 +18,7 @@ apt-get install -y \
 # INSTALL NODE 8
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get install -y nodejs && \
-   && rm -rf /var/lib/apt/lists/*
+   rm -rf /var/lib/apt/lists/*
 
 # Configure avahi-daemon 
 # RUN sed -i '/^rlimit-nproc/s/^\(.*\)/#\1/g' /etc/avahi/avahi-daemon.conf
