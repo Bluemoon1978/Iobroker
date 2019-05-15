@@ -23,6 +23,17 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         unzip \
         wget \
     && rm -rf /var/lib/apt/lists/*
+    
+      RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+	android-tools-adb \
+	android-tools-fastboot \
+	bluetooth \
+	bluez \
+	libbluetooth-dev \
+	nano \
+	arp-scan \
+	udev /
+  && rm -rf /var/lib/apt/lists/* 
 
 # Install node8
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
