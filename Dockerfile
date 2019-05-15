@@ -32,7 +32,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 	libbluetooth-dev \
 	nano \
 	arp-scan \
-	udev /
+	udev \
   && rm -rf /var/lib/apt/lists/* 
 
 # Install node8
