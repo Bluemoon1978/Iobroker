@@ -33,6 +33,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 	nano \
 	arp-scan \
 	udev \
+	net-tools \
   && rm -rf /var/lib/apt/lists/* 
 
 # Install node8
