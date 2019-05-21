@@ -54,9 +54,11 @@ WORKDIR /opt/scripts/
 COPY scripts/iobroker_startup.sh iobroker_startup.sh
 COPY scripts/setup_avahi.sh setup_avahi.sh
 COPY scripts/setup_packages.sh setup_packages.sh
+COPY scripts/setcab.sh setcab.sh
 RUN chmod +x iobroker_startup.sh \
 	&& chmod +x setup_avahi.sh \
-    && chmod +x setup_packages.sh
+    && chmod +x setup_packages.sh \
+    && chmod +x setcab.sh
 
 # Install ioBroker
 WORKDIR /
@@ -75,6 +77,9 @@ RUN tar -cf /opt/initial_iobroker.tar /opt/iobroker
 
 # Setting up iobroker-user
 RUN chsh -s /bin/bash iobroker
+
+# Script for radar2
+RUN /opt/scripts/setcab.sh
 
 # Setting up ENVs
 ENV DEBIAN_FRONTEND="teletype" \
