@@ -35,7 +35,7 @@ then
   echo ''
   echo 'Directory /opt/iobroker is empty!'
   echo 'Restoring data from image...'
-	tar -xf /opt/initial_iobroker.tar -C /
+	tar -xPf /opt/initial_iobroker.tar -C /
 	echo 'Restoring done...'
 fi
 
