@@ -1,6 +1,6 @@
-FROM debian:latest
+FROM debian:stretch
 
-MAINTAINER Andre Germann <https://buanet.de>
+MAINTAINER Heiko H. from / Andre Germann <https://buanet.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -12,14 +12,13 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         curl \
         git \
         gnupg2 \
-        libavahi-compat-libdnssd-dev \
         libcap2-bin \
         libpam0g-dev \
         libudev-dev \
         locales \
         procps \
         python \
-        sudo \
+        gosu \
         unzip \
         wget \
     && rm -rf /var/lib/apt/lists/*
