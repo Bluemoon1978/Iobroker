@@ -5,7 +5,7 @@ MAINTAINER Heiko H. from / Andre Germann <https://buanet.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install prerequisites
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt update && apt upgrade -y && apt install -y \
         acl \
         apt-utils \
         build-essential \
@@ -23,7 +23,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         wget \
     && rm -rf /var/lib/apt/lists/*
     
-      RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+      RUN apt update && apt upgrade -y && apt install -y \
 	android-tools-adb \
 	android-tools-fastboot \
 	bluetooth \
@@ -37,7 +37,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 
 # Install node8
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
-    && apt-get update && apt-get install -y \
+    && apt update && apt install -y \
         nodejs \
     && rm -rf /var/lib/apt/lists/*
 
@@ -61,7 +61,7 @@ RUN chmod +x iobroker_startup.sh \
 
 # Install ioBroker
 WORKDIR /
-RUN apt-get update \
+RUN apt update \
     && curl -sL https://raw.githubusercontent.com/ioBroker/ioBroker/stable-installer/installer.sh | bash - \
     && echo $(hostname) > /opt/iobroker/.install_host \
     && echo $(hostname) > /opt/.firstrun \
