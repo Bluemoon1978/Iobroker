@@ -21,9 +21,9 @@ RUN apt update && apt upgrade -y && apt install -y \
         gosu \
         unzip \
         wget \
-    && rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/*
     
-      RUN apt update && apt upgrade -y && apt install -y \
+RUN apt update && apt upgrade -y && apt install -y \
 	android-tools-adb \
 	android-tools-fastboot \
 	bluetooth \
@@ -33,13 +33,13 @@ RUN apt update && apt upgrade -y && apt install -y \
 	arp-scan \
 	udev \
 	net-tools \
-  && rm -rf /var/lib/apt/lists/* 
+	&& rm -rf /var/lib/apt/lists/* 
 
 # Install node8
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
-    && apt update && apt install -y \
+	&& apt update && apt install -y \
         nodejs \
-    && rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/*
 
 # Generating locales
 RUN sed -i 's/^# *\(de_DE.UTF-8\)/\1/' /etc/locale.gen \
@@ -48,7 +48,7 @@ RUN sed -i 's/^# *\(de_DE.UTF-8\)/\1/' /etc/locale.gen \
 
 # Create scripts directory and copy scripts
 RUN mkdir -p /opt/scripts/ \
-    && chmod 777 /opt/scripts/
+	&& chmod 777 /opt/scripts/
 WORKDIR /opt/scripts/
 COPY scripts/iobroker_startup.sh iobroker_startup.sh
 COPY scripts/setup_avahi.sh setup_avahi.sh
@@ -56,16 +56,16 @@ COPY scripts/setup_packages.sh setup_packages.sh
 COPY scripts/setcab.sh setcab.sh
 RUN chmod +x iobroker_startup.sh \
 	&& chmod +x setup_avahi.sh \
-    && chmod +x setup_packages.sh \
-    && chmod +x setcab.sh
+	&& chmod +x setup_packages.sh \
+	&& chmod +x setcab.sh
 
 # Install ioBroker
 WORKDIR /
 RUN apt update \
-    && curl -sL https://raw.githubusercontent.com/ioBroker/ioBroker/stable-installer/installer.sh | bash - \
-    && echo $(hostname) > /opt/iobroker/.install_host \
-    && echo $(hostname) > /opt/.firstrun \
-    && rm -rf /var/lib/apt/lists/*
+	&& curl -sL https://raw.githubusercontent.com/ioBroker/ioBroker/stable-installer/installer.sh | bash - \
+	&& echo $(hostname) > /opt/iobroker/.install_host \
+	&& echo $(hostname) > /opt/.firstrun \
+	&& rm -rf /var/lib/apt/lists/*
 
 # Install node-gyp
 WORKDIR /opt/iobroker/
@@ -77,7 +77,7 @@ RUN tar -cPf /opt/initial_iobroker.tar /opt/iobroker
 # Setting up iobroker-user
 RUN chsh -s /bin/bash iobroker
 
-# Script for radar2
+# Script for radar2 adapter
 RUN /opt/scripts/setcab.sh
 
 # Setting up ENVs
