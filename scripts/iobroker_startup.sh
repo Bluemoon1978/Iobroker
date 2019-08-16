@@ -10,7 +10,7 @@ dati=`date '+%Y-%m-%d %H:%M:%S'`
 # Information
 echo ''
 echo '----------------------------------------'
-echo '-----     Image-Version: 3.0.0     -----'
+echo '-----   Image-Version: 3.0.2beta   -----'
 echo '-----      '$dati'     -----'
 echo '----------------------------------------'
 echo ''
@@ -38,6 +38,10 @@ then
 	tar -xf /opt/initial_iobroker.tar -C /
 	echo 'Restoring done...'
 fi
+
+# Backing up original iobroker-file and changing sudo to gosu
+cp -a /opt/iobroker/iobroker /opt/iobroker/iobroker.bak
+sed -i 's/sudo -H -u/gosu/g' /opt/iobroker/iobroker
 
 # Checking for first run of a new installation and renaming ioBroker
 if [ -f /opt/iobroker/.install_host ]
@@ -76,8 +80,14 @@ sleep 5
 # Starting ioBroker
 echo ''
 echo 'Starting ioBroker...'
-sudo -u iobroker node node_modules/iobroker.js-controller/controller.js > /opt/scripts/iobroker.log 2>&1 &
-echo 'Starting ioBroker done...'
+echo ''
+echo '----------------------------------------'
+echo '-------     ioBroker Logging     -------'
+echo '----------------------------------------'
+echo ''
 
-# Preventing container restart by keeping a process alive
+# gosu iobroker node node_modules/iobroker.js-controller/controller.js > /opt/scripts/iobroker.log 2>&1 &
+gosu iobroker node node_modules/iobroker.js-controller/controller.js
+
+# Preventing container restart by keeping a process alive even if iobroker will be stopped
 tail -f /dev/null
