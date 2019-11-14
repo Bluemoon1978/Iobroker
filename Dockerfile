@@ -89,7 +89,8 @@ ENV DEBIAN_FRONTEND="teletype" \
 	PACKAGES="nano" \
 	AVAHI="false" \
 	SETUID=1000 \
-	SETGID=1000 
+	SETGID=1000  \
+	ZWAVE="false"
 
 # Setting up EXPOSE for Admin
 EXPOSE 8081/tcp	
