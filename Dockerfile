@@ -35,7 +35,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 	net-tools \
   && rm -rf /var/lib/apt/lists/* 
 
-# Install node10.16
+# Install node10.xx
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash \
     && apt-get update && apt-get install -y \
         nodejs \
@@ -87,7 +87,10 @@ ENV DEBIAN_FRONTEND="teletype" \
 	LC_ALL="de_DE.UTF-8" \
 	TZ="Europe/Berlin" \
 	PACKAGES="nano" \
-	AVAHI="false"
+	AVAHI="false" \
+	SETGID=1000 \
+	SETGID=1000  \
+	ZWAVE="false"
 
 # Setting up EXPOSE for Admin
 EXPOSE 8081/tcp	
