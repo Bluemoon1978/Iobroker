@@ -5,13 +5,14 @@ MAINTAINER Heiko H. from / Andre Germann <https://buanet.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install prerequisites
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt-get update && apt-get install -y \
         acl \
         apt-utils \
         build-essential \
         curl \
         git \
         gnupg2 \
+	jq /
         libcap2-bin \
         libpam0g-dev \
         libudev-dev \
@@ -21,9 +22,11 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
         gosu \
         unzip \
         wget \
+	procps \
+	pkg-config \
     && rm -rf /var/lib/apt/lists/*
     
-      RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+      RUN apt-get update && apt-get install -y \
 	android-tools-adb \
 	android-tools-fastboot \
 	bluetooth \
@@ -46,9 +49,12 @@ RUN sed -i 's/^# *\(de_DE.UTF-8\)/\1/' /etc/locale.gen \
 	&& sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
 	&& locale-gen
 
-# Create scripts directory and copy scripts
+# Create scripts directorys and copy scripts
 RUN mkdir -p /opt/scripts/ \
-    && chmod 777 /opt/scripts/
+        && mkdir -p /opt/userscripts/ \
+        && chmod 777 /opt/scripts/ \
+        && chmod 777 /opt/userscripts/
+    
 WORKDIR /opt/scripts/
 COPY scripts/iobroker_startup.sh iobroker_startup.sh
 COPY scripts/setup_avahi.sh setup_avahi.sh
@@ -56,9 +62,12 @@ COPY scripts/setup_packages.sh setup_packages.sh
 COPY scripts/setcab.sh setcab.sh
 RUN chmod +x iobroker_startup.sh \
 	&& chmod +x setup_avahi.sh \
-    && chmod +x setup_packages.sh \
-    && chmod +x setcab.sh
-
+	&& chmod +x setup_packages.sh \
+        && chmod +x setup_zwave.sh
+WORKDIR /opt/userscripts/
+COPY scripts/userscript_firststart_example.sh userscript_firststart_example.sh
+COPY scripts/userscript_everystart_example.sh userscript_everystart_example.sh
+    
 # Install ioBroker
 WORKDIR /
 RUN apt-get update \
@@ -71,8 +80,9 @@ RUN apt-get update \
 WORKDIR /opt/iobroker/
 RUN npm install -g node-gyp
 
-# Backup initial ioBroker-folder
-RUN tar -cf /opt/initial_iobroker.tar /opt/iobroker
+# Backup initial ioBroker and userscript folder
+RUN tar -cf /opt/initial_iobroker.tar /opt/iobroker \
+    && tar -cf /opt/initial_userscripts.tar /opt/userscripts
 
 # Setting up iobroker-user
 RUN chsh -s /bin/bash iobroker
@@ -87,13 +97,12 @@ ENV DEBIAN_FRONTEND="teletype" \
 	LC_ALL="de_DE.UTF-8" \
 	TZ="Europe/Berlin" \
 	PACKAGES="nano" \
-	AVAHI="false" \
 	SETGID=1000 \
-	SETGID=1000  \
-	ZWAVE="false"
+	SETGID=1000  
 
 # Setting up EXPOSE for Admin
 EXPOSE 8081/tcp	
 	
-# Run startup-script
-ENTRYPOINT ["/opt/scripts/iobroker_startup.sh"]
+# Run startup
+ENTRYPOINT ["/bin/bash", "-c", "/opt/scripts/iobroker_startup.sh"]
+script
