@@ -103,6 +103,5 @@ ENV DEBIAN_FRONTEND="teletype" \
 # Setting up EXPOSE for Admin
 EXPOSE 8081/tcp	
 	
-# Run startup
+# Run Startup Script
 ENTRYPOINT ["/bin/bash", "-c", "/opt/scripts/iobroker_startup.sh"]
-script
