@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
         curl \
         git \
         gnupg2 \
-	jq /
+	jq \
         libcap2-bin \
         libpam0g-dev \
         libudev-dev \
