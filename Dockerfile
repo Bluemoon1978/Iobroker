@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM amd64/debian:buster
 
 MAINTAINER Heiko H. from / Andre Germann <https://buanet.de>
 
