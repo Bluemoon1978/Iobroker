@@ -59,11 +59,11 @@ WORKDIR /opt/scripts/
 COPY scripts/iobroker_startup.sh iobroker_startup.sh
 COPY scripts/setup_avahi.sh setup_avahi.sh
 COPY scripts/setup_packages.sh setup_packages.sh
-COPY scripts/setcab.sh setcab.sh
+COPY scripts/setup_zwave.sh setup_zwave.sh
 RUN chmod +x iobroker_startup.sh \
-	&& chmod +x setup_avahi.sh \
-	&& chmod +x setup_packages.sh \
-        && chmod +x setup_zwave.sh
+    && chmod +x setup_avahi.sh \
+    && chmod +x setup_packages.sh \
+    && chmod +x setup_zwave.sh
 WORKDIR /opt/userscripts/
 COPY scripts/userscript_firststart_example.sh userscript_firststart_example.sh
 COPY scripts/userscript_everystart_example.sh userscript_everystart_example.sh
