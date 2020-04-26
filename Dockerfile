@@ -39,7 +39,7 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/* 
 
 # Install node10.xx
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash \
     && apt-get update && apt-get install -y \
         nodejs \
     && rm -rf /var/lib/apt/lists/*
