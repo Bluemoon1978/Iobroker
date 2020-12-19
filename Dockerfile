@@ -60,6 +60,8 @@ COPY scripts/iobroker_startup.sh iobroker_startup.sh
 COPY scripts/setup_avahi.sh setup_avahi.sh
 COPY scripts/setup_packages.sh setup_packages.sh
 COPY scripts/setup_zwave.sh setup_zwave.sh
+COPY scripts/healthcheck.sh healthcheck.sh
+COPY scripts/maintenance.sh maintenance.sh
 COPY scripts/setcab.sh setcab.sh
 RUN chmod +x iobroker_startup.sh \
     && chmod +x setup_avahi.sh \
