@@ -65,6 +65,8 @@ RUN chmod +x iobroker_startup.sh \
     && chmod +x setup_avahi.sh \
     && chmod +x setup_packages.sh \
     && chmod +x setup_zwave.sh \
+    && chmod +x healthcheck.sh \
+    && chmod +x maintenance.sh \
     && chmod +x setcab.sh
     
 WORKDIR /opt/userscripts/
@@ -75,7 +77,9 @@ COPY scripts/userscript_everystart_example.sh userscript_everystart_example.sh
 WORKDIR /
 RUN apt-get update \
     && curl -sL https://iobroker.net/install.sh | bash - \
-    && echo $(hostname) > /opt/iobroker/.install_host \
+    && mkdir -p /opt/scripts/.docker_config/ \
+    && echo $(hostname) > /opt/scripts/.docker_config/.install_host \
+    && echo "starting" > /opt/scripts/.docker_config/.healthcheck \
     && echo $(hostname) > /opt/.firstrun \
     && rm -rf /var/lib/apt/lists/*
 
@@ -102,6 +106,10 @@ ENV DEBIAN_FRONTEND="teletype" \
 	PACKAGES="nano" \
 	SETGID=1000 \
 	SETGID=1000  
+
+# Healthcheck
+HEALTHCHECK --interval=15s --timeout=5s --retries=5 \
+    CMD ["/bin/bash", "-c", "/opt/scripts/healthcheck.sh"]
 
 # Setting up EXPOSE for Admin
 EXPOSE 8081/tcp	
