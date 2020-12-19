@@ -92,7 +92,7 @@ then
     echo "Done."
     echo ' '
   fi
- if [ -f /opt/.firstrun ]
+  if [ -f /opt/.firstrun ]
   then
     echo "Registering maintenance script as command."
     echo "alias maintenance=\'/opt/scripts/maintenance.sh\'" >> /root/.bashrc
@@ -127,14 +127,14 @@ then
     rm -f /opt/scripts/.docker_config/.install_host
 elif [ $(ls *_backupiobroker.tar.gz 2> /dev/null | wc -l) != "0" ] && [ $(tar -ztvf /opt/iobroker/*_backupiobroker.tar.gz "backup/backup.json" 2> /dev/null | wc -l) != "0" ]
 then
- if [ "$multihost" = "slave" ]
+  if [ "$multihost" = "slave" ]
   then
     echo "IoBroker backup file detected in /opt/iobroker. But Multihost is set to \"slave\"."
     echo "Restoring a backup is not supported on Multihost slaves. Please check configuration and start over."
     echo "For more information see readme.md on Github (https://github.com/buanet/docker-iobroker)."
     exit 1
   else
-     iobroker backup file detected in /opt/iobroker. Restoring ioBroker..."
+    echo "IoBroker backup file detected in /opt/iobroker. Preparing restore..."
       mv /opt/iobroker/*.tar.gz /opt/
       tar -xf /opt/initial_iobroker.tar -C /
       mkdir /opt/iobroker/backups
@@ -142,7 +142,7 @@ then
       chown -R $setuid:$setgid /opt/iobroker                        # fixes permission error during restore
     echo "Done."
     echo "Restoring ioBroker..."
-       iobroker restore 0 > /opt/iobroker/log/restore.log 2>&1
+      iobroker restore 0 > /opt/iobroker/log/restore.log 2>&1
     echo "Done."
     echo ' '
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -192,14 +192,14 @@ then
   echo "Hostname needs to be updated to " $(hostname)"..."
     bash iobroker host $(cat /opt/scripts/.docker_config/.install_host)
     rm -f /opt/scripts/.docker_config/.install_host
-  echo 'Done.'
+  echo "Done."
   echo ' '
 elif [ $(bash iobroker object get system.adapter.admin.0 --pretty | grep -oP '(?<="host": ")[^"]*') != $(hostname) ]
 then
   echo "Hostname in ioBroker does not match the hostname of this container."
   echo "Updating hostname to " $(hostname)"..."
     bash iobroker host $(iobroker object get system.adapter.admin.0 --pretty | grep -oP '(?<="host": ")[^"]*')
-  echo 'Done.'
+  echo "Done."
   echo ' '
 fi
 
@@ -224,8 +224,8 @@ then
   then
     echo "Adminport set by ENV does not match port configured in ioBroker installation."
     echo "Setting Adminport to \""$adminport"\"..."
-    bash iobroker set admin.0 --port $adminport
-    echo 'Done.'
+      bash iobroker set admin.0 --port $adminport
+    echo "Done."
     echo ' '
   fi
 fi
@@ -237,8 +237,8 @@ then
   if [ "$avahi" = "true" ]
   then
     echo "Avahi-daemon is activated by ENV."
-    chmod 755 /opt/scripts/setup_avahi.sh
-    bash /opt/scripts/setup_avahi.sh
+      chmod 755 /opt/scripts/setup_avahi.sh
+      bash /opt/scripts/setup_avahi.sh
     echo "Done."
     echo ' '
   fi
@@ -251,8 +251,8 @@ then
   if [ "$zwave" = "true" ]
   then
     echo "Z-Wave is activated by ENV."
-    chmod 755 /opt/scripts/setup_zwave.sh
-    bash /opt/scripts/setup_zwave.sh
+      chmod 755 /opt/scripts/setup_zwave.sh
+      bash /opt/scripts/setup_zwave.sh
     echo "Done."
     echo ' '
   fi
