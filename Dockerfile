@@ -113,7 +113,7 @@ ENV DEBIAN_FRONTEND="teletype" \
 HEALTHCHECK --interval=15s --timeout=5s --retries=5 \
     CMD ["/bin/bash", "-c", "/opt/scripts/healthcheck.sh"]
 
-# Setting up EXPOSE for Admin
+# Setting up EXPOSE for admin
 EXPOSE 8081/tcp	
 	
 # Run Startup Script
