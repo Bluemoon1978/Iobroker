@@ -1,7 +1,7 @@
 # docker-iobroker
 Docker image for ioBroker (http://iobroker.net) based on debian:latest (http://hub.docker.com/_/debian/)
 
-This project creates a Docker image for running ioBroker in a Docker container. It is made for and tested on a Synology Disk Station 1515+ with DSM 6 and Docker-package installed. But it should also work on other systems with Docker!<br>
+This project creates a Docker image for running ioBroker in a Docker container. It is made for and tested on a Synology Disk Station 1515+ with DSM 6 and Docker-package installed. But it should also work on other systems with Docker.<br>
 Cause the container ist based on debian:latest, it acts nearly like a full virtual machine. That makes it possible to easily add some additional dependies for some ioBroker-Adapters.
 
 ## Installation & Usage
